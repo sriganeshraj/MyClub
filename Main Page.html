@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuwa Fuwa Sanctuary - Sorting Ceremony</title>
+    <style>
+        body {
+            font-family: 'Segoe Script', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('your-background-image-url.jpg'); /* Replace 'your-background-image-url.jpg' with the actual URL or path to your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.9); /* Set the transparency to 90% to make the text more readable */
+        }
+
+        header {
+            background-color: rgba(139, 69, 19, 0.7); /* Set the transparency to 70% */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        section {
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background to make the text more readable */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-question {
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .quiz-option {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background-color: #f9f9f9;
+        }
+
+        #quiz-result {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffeeba;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Fuwa Fuwa Sanctuary - Sorting Ceremony
+    </header>
+
+    <section>
+        <h2>Welcome to Fuwa Fuwa Sanctuary</h2>
+        <p>Experience the magical sorting ceremony! Answer the questions to discover which house awaits you: Winterfell, Foxmoors, Millies, or Robins!</p>
+
+        <div class="quiz-container">
+            <div class="quiz-question">
+                <p>Question 1: Which magical creature do you find most fascinating?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption('Winterfell')">Dragons</div>
+                    <div class="quiz-option" onclick="selectOption('Foxmoors')">Phoenixes</div>
+                    <div class="quiz-option" onclick="selectOption('Millies')">Hippogriffs</div>
+                    <div class="quiz-option" onclick="selectOption('Robins')">Thestrals</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>Question 2: What type of magic would you like to specialize in?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption('Winterfell')">Ice Magic</div>
+                    <div class="quiz-option" onclick="selectOption('Foxmoors')">Nature Magic</div>
+                    <div class="quiz-option" onclick="selectOption('Millies')">Herbology</div>
+                    <div class="quiz-option" onclick="selectOption('Robins')">Fire Magic</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>Question 3: How would you prefer to spend your free time at the magical school?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption('Winterfell')">Practicing spells in the snow</div>
+                    <div class="quiz-option" onclick="selectOption('Foxmoors')">Exploring the enchanted forest</div>
+                    <div class="quiz-option" onclick="selectOption('Millies')">Attending herbology classes</div>
+                    <div class="quiz-option" onclick="selectOption('Robins')">Basking in the magical sunlight</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>Question 4: Choose a favorite magical subject:</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption('Winterfell')">Potions</div>
+                    <div class="quiz-option" onclick="selectOption('Foxmoors')">Care of Magical Creatures</div>
+                    <div class="quiz-option" onclick="selectOption('Millies')">Herbology</div>
+                    <div class="quiz-option" onclick="selectOption('Robins')">Charms</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>Question 5: What quality do you value most in a magical companion?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption('Winterfell')">Loyalty</div>
+                    <div class="quiz-option" onclick="selectOption('Foxmoors')">Adventurous spirit</div>
+                    <div class="quiz-option" onclick="selectOption('Millies')">Gentleness</div>
+                    <div class="quiz-option" onclick="selectOption('Robins')">Courage</div>
+                </div>
+            </div>
+
+            <!-- Display the result after the last question -->
+            <div id="quiz-result" style="display: none;">
+                <h3>Your House:</h3>
+                <p id="house-result"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fuwa Fuwa Sanctuary. All rights reserved.</p>
+    </footer>
+
+    <script>
+         let housePoints = {
+            Winterfell: 0,
+            Foxmoors: 0,
+            Millies: 0,
+            Robins: 0
+        };
+
+        function selectOption(house) {
+            housePoints[house]++;
+            
+            // If it's the last question, display the result
+            if (Object.keys(housePoints).length === 5) {
+                displayResult();
+            }
+        }
+
+        function displayResult() {
+            const resultContainer = document.getElementById('quiz-result');
+            const resultMessage = document.getElementById('house-result');
+
+            // Determine the house with the highest points
+            let maxPoints = Math.max(...Object.values(housePoints));
+            let resultHouse = Object.keys(housePoints).find(key => housePoints[key] === maxPoints);
+
+            // Display the result
+            resultMessage.textContent = `Congratulations! You belong to ${resultHouse}.`;
+            resultContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
